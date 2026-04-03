@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yelp-arizona-coffee-market-analysis"
+version = "0.1.0"
+description = "Arizona coffee market analysis pipeline using Yelp Open Dataset."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.8",
+    "pandas>=2.2",
+]
+
+[project.scripts]
+coffee-market = "coffee_market.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

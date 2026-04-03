@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "yelp-arizona-coffee-market-analysis"
+name = "coffee-market-analysis"
 version = "0.1.0"
-description = "Arizona coffee market analysis pipeline using Yelp Open Dataset."
+description = "Coffee market analysis pipeline using Yelp Open Dataset (Arizona subset)."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

@@ -1,4 +1,4 @@
-"""Arizona coffee market analysis package."""
+"""Coffee market analysis package."""
 
 from .database import write_sqlite_database
 from .preprocessing import build_filtered_data, save_filtered_data

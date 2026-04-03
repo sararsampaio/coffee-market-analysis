@@ -1,4 +1,4 @@
--- Arizona Coffee Market Analysis
+-- Coffee Market Analysis
 -- SQL queries used for exploratory analysis
 
 -- 1. Count coffee shops by city

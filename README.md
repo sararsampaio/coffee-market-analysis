@@ -1,8 +1,8 @@
-# Arizona Coffee Market Analysis
-Lean, production-style pipeline for analyzing Arizona coffee businesses from the Yelp Open Dataset.
+# Coffee Market Analysis
+Lean, production-style pipeline for analyzing coffee businesses from the Yelp Open Dataset (Arizona subset).
 
 ## What This Project Does
-- Filters Arizona coffee-related businesses from raw Yelp JSONL files.
+- Filters coffee-related businesses from raw Yelp JSONL files (Arizona subset).
 - Builds a clean SQLite database for reproducible analysis.
 - Runs SQL queries and exports analysis-ready result tables.
 - Includes notebook exploration and a Power BI dashboard artifact.

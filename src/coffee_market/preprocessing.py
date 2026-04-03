@@ -1,4 +1,4 @@
-"""Data preparation pipeline for Arizona coffee analysis."""
+"""Data preprocessing pipeline for coffee market analysis."""
 
 from pathlib import Path
 
@@ -54,7 +54,7 @@ USER_COLUMNS = [
 
 
 def build_filtered_data(input_dir: Path, chunk_size: int = 50_000) -> dict[str, pd.DataFrame]:
-    """Build filtered Arizona coffee datasets."""
+    """Build filtered coffee datasets for the configured scope."""
     business = pd.read_json(input_dir / RAW_FILES["business"], lines=True)
     coffee_businesses = filter_businesses(business)
     coffee_business_ids = set(coffee_businesses["business_id"])
@@ -85,7 +85,7 @@ def build_filtered_data(input_dir: Path, chunk_size: int = 50_000) -> dict[str, 
 
 
 def filter_businesses(business: pd.DataFrame) -> pd.DataFrame:
-    """Return Arizona coffee-related businesses."""
+    """Return coffee-related businesses for Arizona."""
     filtered = business[
         (business["state"] == "AZ")
         & (business["categories"].fillna("").str.contains(COFFEE_CATEGORY_PATTERN, case=False, regex=True))

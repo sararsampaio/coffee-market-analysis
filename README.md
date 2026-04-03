@@ -24,6 +24,10 @@ Required files in `data/raw/`:
 
 ## Quick Start
 1. Create and activate a virtual environment.
+   ```bash
+   conda create -n coffee-market python=3.11 -y
+   conda activate coffee-market
+   ```
 2. Install project dependencies:
    ```bash
    pip install -e .

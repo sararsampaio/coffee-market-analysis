@@ -15,3 +15,5 @@ reports/figures/
 
 # Notebook checkpoints
 .ipynb_checkpoints/
+
+build/

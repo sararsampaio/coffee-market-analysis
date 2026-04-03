@@ -5,8 +5,7 @@ Lean, production-style pipeline for analyzing coffee businesses from the Yelp Op
 - Filters coffee-related businesses from raw Yelp JSONL files (Arizona subset).
 - Builds a clean SQLite database for reproducible analysis.
 - Runs SQL queries and exports analysis-ready result tables.
-- Includes notebook exploration and a Power BI dashboard artifact.
-
+- Includes a Power BI dashboard artifact.`n
 ## Tech
 - Python (`pandas`, `matplotlib`, `sqlite3`)
 - SQL (SQLite)
@@ -45,5 +44,6 @@ Required files in `data/raw/`:
 
 ## Data Model
 ![Entity Relationship Diagram](docs/images/erd_arizona_coffee.png)
+
 
 

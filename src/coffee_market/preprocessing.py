@@ -19,16 +19,20 @@ RAW_FILES = {
 BUSINESS_COLUMNS = [
     "business_id",
     "name",
+    "address",
     "city",
+    "postal_code",
     "state",
     "latitude",
     "longitude",
     "stars",
     "review_count",
     "categories",
+    "attributes",
+    "hours",
     "is_open",
+    "phone",
 ]
-
 REVIEW_COLUMNS = [
     "review_id",
     "user_id",
@@ -106,7 +110,7 @@ def filter_businesses(business: pd.DataFrame) -> pd.DataFrame:
         (business["state"] == "AZ")
         & (business["categories"].fillna("").str.contains(COFFEE_CATEGORY_PATTERN, case=False, regex=True))
     ].copy()
-    return filtered[BUSINESS_COLUMNS]
+    return filtered.reindex(columns=BUSINESS_COLUMNS)
 
 
 def filter_chunked_file(
@@ -188,3 +192,5 @@ def count_lines(path: Path) -> int:
     if last_byte and last_byte != b"\n":
         line_count += 1
     return line_count
+
+

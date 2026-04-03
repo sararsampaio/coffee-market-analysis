@@ -12,26 +12,6 @@ Lean, production-style pipeline for analyzing coffee businesses from the Yelp Op
 - SQL (SQLite)
 - Power BI
 
-## Structure
-```text
-src/coffee_market/
-  cli.py
-  preprocessing.py
-  database.py
-  analysis.py
-  visualization.py
-sql/
-  analysis_queries.sql
-docs/images/
-  dashboard_preview.png
-  erd_arizona_coffee.png
-notebooks/
-  01_preprocessing.ipynb
-  02_analysis.ipynb
-dashboard/
-  coffee_market_dashboard.pbix
-```
-
 ## Dataset
 Source: https://business.yelp.com/data/resources/open-dataset/
 

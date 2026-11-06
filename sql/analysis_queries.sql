@@ -10,12 +10,14 @@ GROUP BY city
 ORDER BY coffee_shop_count DESC;
 
 
--- 2. Average rating by city
+-- 2. Average rating by city (cities with at least 3 coffee shops)
 SELECT
     city,
+    COUNT(*) AS coffee_shop_count,
     ROUND(AVG(stars), 2) AS average_rating
 FROM business
 GROUP BY city
+HAVING COUNT(*) >= 3
 ORDER BY average_rating DESC;
 
 
@@ -39,18 +41,7 @@ GROUP BY stars
 ORDER BY stars;
 
 
--- 5. Highest-rated cities with at least 5 coffee shops
-SELECT
-    city,
-    COUNT(*) AS coffee_shop_count,
-    ROUND(AVG(stars), 2) AS average_rating
-FROM business
-GROUP BY city
-HAVING COUNT(*) >= 5
-ORDER BY average_rating DESC;
-
-
--- 6. Businesses grouped by rating band
+-- 5. Businesses grouped by rating band
 SELECT
     CASE
         WHEN stars < 2 THEN 'Below 2.0'

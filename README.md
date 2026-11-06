@@ -16,7 +16,7 @@ Lean, production-style pipeline for analyzing coffee businesses from the Yelp Op
 - **Attention is concentrated:** the 10% most-reviewed shops receive 45% of all reviews. Baja Cafe leads with 1,074 reviews. The median shop has 36.
 - **About a quarter of the listings have closed:** 73.5% are still open.
 
-> Review totals use Yelp's `review_count` field (33,492). The review dataset itself holds 35,125 reviews for these shops, because Yelp's counter and its published review sample are not perfectly in sync.
+> Review totals use Yelp's `review_count` field (33,492). The review file contains 35,125 reviews for these shops: `review_count` is lower for 291 shops (by 4 on average) and never higher.
 
 ## Tech
 - Python (`pandas`, `matplotlib`, `sqlite3`)

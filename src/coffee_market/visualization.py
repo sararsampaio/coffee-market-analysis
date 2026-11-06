@@ -1,7 +1,7 @@
 """Chart generation utilities for market analysis outputs."""
 
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 
 import matplotlib as mpl
 import pandas as pd
@@ -31,8 +31,7 @@ def load_plot_datasets(database_path: Path) -> dict[str, pd.DataFrame]:
             FROM business
             GROUP BY city
             HAVING COUNT(*) >= 3
-            ORDER BY total_shops DESC
-            LIMIT 10;
+            ORDER BY avg_rating DESC;
             """,
             conn,
         )
@@ -73,10 +72,10 @@ def plot_top_cities(frame: pd.DataFrame, output_path: Path) -> Path:
 
 
 def plot_city_ratings(frame: pd.DataFrame, output_path: Path) -> Path:
-    """Plot average rating for the largest coffee-shop markets."""
+    """Plot average rating for cities with at least 3 coffee shops."""
     fig, ax = plt.subplots(figsize=(10, 5))
     frame.plot(kind="bar", x="city", y="avg_rating", legend=False, ax=ax)
-    ax.set_title("Average Rating by City")
+    ax.set_title("Average Rating by City (3+ shops)")
     ax.set_xlabel("City")
     ax.set_ylabel("Average Rating")
     fig.tight_layout()

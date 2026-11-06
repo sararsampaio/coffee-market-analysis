@@ -7,10 +7,22 @@ Lean, production-style pipeline for analyzing coffee businesses from the Yelp Op
 - Runs SQL queries and exports analysis-ready result tables.
 - Includes a Power BI dashboard artifact.
 
+## Key Findings
+445 coffee shops in Arizona (Yelp categories such as *Coffee & Tea*, *Cafes*, *Coffee Roasteries*, *Bubble Tea*, *Tea Rooms*).
+- **Tucson dominates the market:** 405 shops, 91% of the total. The next largest, Oro Valley, has 16.
+- **Ratings are generally positive:** 51% of shops have 4 stars or more, and 62% fall between 3.5 and 4.5. The average is 3.58.
+- **Ratings vary by city:** among cities with at least 3 shops, Vail rates highest (4.33) and Marana lowest (2.89). Tucson sits at 3.60.
+- **Popularity doesn't mean quality:** review volume barely relates to rating (correlation 0.22).
+- **Attention is concentrated:** the 10% most-reviewed shops receive 45% of all reviews. Baja Cafe leads with 1,074 reviews. The median shop has 36.
+- **About a quarter of the listings have closed:** 73.5% are still open.
+
+> Review totals use Yelp's `review_count` field (33,492). The review dataset itself holds 35,125 reviews for these shops, because Yelp's counter and its published review sample are not perfectly in sync.
+
 ## Tech
 - Python (`pandas`, `matplotlib`, `sqlite3`)
 - SQL (SQLite)
 - Power BI
+- Testing and linting (`pytest`, `ruff`)
 
 ## Dataset
 Source: https://business.yelp.com/data/resources/open-dataset/
@@ -39,6 +51,13 @@ Required files in `data/raw/`:
    coffee-market analyze --db-path data/coffee_analysis.db --sql-file sql/analysis_queries.sql --output-dir reports/sql_results
    coffee-market visualize --db-path data/coffee_analysis.db --output-dir reports/figures
    ```
+
+## Tests
+```bash
+pip install -e ".[dev]"
+pytest
+ruff check src tests
+```
 
 ## Power BI
 To update source go to `File -> Options and settings -> Data source settings`.

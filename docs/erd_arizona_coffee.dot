@@ -1,0 +1,82 @@
+// Entity relationship diagram of the SQLite database built by `coffee-market build-db`.
+// Render: dot -Tpng -Gdpi=150 docs/erd_arizona_coffee.dot -o docs/images/erd_arizona_coffee.png
+digraph erd {
+    graph [rankdir=LR, splines=spline, nodesep=0.5, ranksep=1.2, pad=0.3, bgcolor="white"];
+    node  [shape=plain, fontname="Arial", fontsize=12];
+    edge  [dir=both, color="#333333", penwidth=1.2, arrowsize=1.1];
+
+    business [label=<
+      <table border="1" cellborder="0" cellspacing="0" cellpadding="5" color="#6C8EBF">
+        <tr><td bgcolor="#DAE8FC" colspan="2"><b>BUSINESS</b></td></tr>
+        <tr><td align="left"><b>PK</b></td><td align="left" port="id">business_id</td></tr>
+        <tr><td></td><td align="left">name</td></tr>
+        <tr><td></td><td align="left">address</td></tr>
+        <tr><td></td><td align="left">city</td></tr>
+        <tr><td></td><td align="left">postal_code</td></tr>
+        <tr><td></td><td align="left">state</td></tr>
+        <tr><td></td><td align="left">latitude</td></tr>
+        <tr><td></td><td align="left">longitude</td></tr>
+        <tr><td></td><td align="left">stars</td></tr>
+        <tr><td></td><td align="left">review_count</td></tr>
+        <tr><td></td><td align="left">categories</td></tr>
+        <tr><td></td><td align="left">attributes</td></tr>
+        <tr><td></td><td align="left">hours</td></tr>
+        <tr><td></td><td align="left">is_open</td></tr>
+        <tr><td></td><td align="left">phone</td></tr>
+      </table>>];
+
+    checkins [label=<
+      <table border="1" cellborder="0" cellspacing="0" cellpadding="5" color="#6C8EBF">
+        <tr><td bgcolor="#DAE8FC" colspan="2"><b>CHECKINS</b></td></tr>
+        <tr><td align="left" port="id"><b>PK, FK</b></td><td align="left">business_id</td></tr>
+        <tr><td></td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">checkin_dates</td></tr>
+        <tr><td></td><td align="left">total_checkins</td></tr>
+      </table>>];
+
+    reviews [label=<
+      <table border="1" cellborder="0" cellspacing="0" cellpadding="5" color="#6C8EBF">
+        <tr><td bgcolor="#DAE8FC" colspan="2"><b>REVIEWS</b></td></tr>
+        <tr><td align="left"><b>PK</b></td><td align="left">review_id</td></tr>
+        <tr><td align="left"><b>FK</b></td><td align="left" port="user">user_id</td></tr>
+        <tr><td align="left" port="biz"><b>FK</b></td><td align="left">business_id</td></tr>
+        <tr><td></td><td align="left">stars</td></tr>
+        <tr><td></td><td align="left">useful</td></tr>
+        <tr><td></td><td align="left">funny</td></tr>
+        <tr><td></td><td align="left">cool</td></tr>
+        <tr><td></td><td align="left">text</td></tr>
+        <tr><td></td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">review_length</td></tr>
+      </table>>];
+
+    tips [label=<
+      <table border="1" cellborder="0" cellspacing="0" cellpadding="5" color="#6C8EBF">
+        <tr><td bgcolor="#DAE8FC" colspan="2"><b>TIPS</b></td></tr>
+        <tr><td align="left"><b>FK</b></td><td align="left" port="user">user_id</td></tr>
+        <tr><td align="left" port="biz"><b>FK</b></td><td align="left">business_id</td></tr>
+        <tr><td></td><td align="left">text</td></tr>
+        <tr><td></td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">compliment_count</td></tr>
+        <tr><td></td><td align="left">tip_length</td></tr>
+      </table>>];
+
+    users [label=<
+      <table border="1" cellborder="0" cellspacing="0" cellpadding="5" color="#6C8EBF">
+        <tr><td bgcolor="#DAE8FC" colspan="2"><b>USERS</b></td></tr>
+        <tr><td align="left" port="id"><b>PK</b></td><td align="left">user_id</td></tr>
+        <tr><td></td><td align="left">review_count</td></tr>
+        <tr><td></td><td align="left">yelping_since</td></tr>
+        <tr><td></td><td align="left">useful</td></tr>
+        <tr><td></td><td align="left">funny</td></tr>
+        <tr><td></td><td align="left">cool</td></tr>
+        <tr><td></td><td align="left">fans</td></tr>
+        <tr><td></td><td align="left">average_stars</td></tr>
+      </table>>];
+
+    // Crow's foot notation: tee = exactly one, crow = many, teeodot = zero or one.
+    business:id:e -> reviews:biz:w  [arrowtail=tee, arrowhead=crow];
+    business:id:e -> tips:biz:w     [arrowtail=tee, arrowhead=crow];
+    business:id:e -> checkins:id:w  [arrowtail=tee, arrowhead=teeodot];
+    reviews:user:e -> users:id:w    [arrowtail=crow, arrowhead=tee];
+    tips:user:e -> users:id:w       [arrowtail=crow, arrowhead=tee];
+}

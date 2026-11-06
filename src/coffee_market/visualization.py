@@ -1,7 +1,7 @@
 """Chart generation utilities for market analysis outputs."""
 
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 
 import matplotlib as mpl
 import pandas as pd

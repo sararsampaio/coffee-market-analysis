@@ -21,19 +21,29 @@ def build_parser() -> argparse.ArgumentParser:
     preprocess.set_defaults(handler=handle_preprocess)
 
     build_db = subparsers.add_parser("build-db", help="Build SQLite database from processed CSVs.")
-    build_db.add_argument("--input-dir", type=Path, default=Path("data/processed"), help="Directory with prepared CSV files.")
+    build_db.add_argument(
+        "--input-dir", type=Path, default=Path("data/processed"), help="Directory with prepared CSV files."
+    )
     build_db.add_argument("--db-path", type=Path, default=Path("data/coffee_analysis.db"), help="SQLite output file.")
     build_db.set_defaults(handler=handle_build_db)
 
     analyze = subparsers.add_parser("analyze", help="Run SQL analysis and export query result CSVs.")
     analyze.add_argument("--db-path", type=Path, default=Path("data/coffee_analysis.db"), help="SQLite database file.")
-    analyze.add_argument("--sql-file", type=Path, default=Path("sql/analysis_queries.sql"), help="SQL script with SELECT queries.")
-    analyze.add_argument("--output-dir", type=Path, default=Path("reports/sql_results"), help="Directory for query CSV outputs.")
+    analyze.add_argument(
+        "--sql-file", type=Path, default=Path("sql/analysis_queries.sql"), help="SQL script with SELECT queries."
+    )
+    analyze.add_argument(
+        "--output-dir", type=Path, default=Path("reports/sql_results"), help="Directory for query CSV outputs."
+    )
     analyze.set_defaults(handler=handle_analyze)
 
     visualize = subparsers.add_parser("visualize", help="Generate standard chart images from SQLite data.")
-    visualize.add_argument("--db-path", type=Path, default=Path("data/coffee_analysis.db"), help="SQLite database file.")
-    visualize.add_argument("--output-dir", type=Path, default=Path("reports/figures"), help="Directory for generated plots.")
+    visualize.add_argument(
+        "--db-path", type=Path, default=Path("data/coffee_analysis.db"), help="SQLite database file."
+    )
+    visualize.add_argument(
+        "--output-dir", type=Path, default=Path("reports/figures"), help="Directory for generated plots."
+    )
     visualize.set_defaults(handler=handle_visualize)
 
     return parser

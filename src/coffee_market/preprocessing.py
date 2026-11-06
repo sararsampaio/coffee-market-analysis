@@ -6,7 +6,21 @@ from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 
-COFFEE_CATEGORY_PATTERN = r"Coffee|Cafe|Tea"
+# Exact Yelp category names. Substring matching (e.g. "Tea") wrongly pulled in
+# Steakhouses, Cheesesteaks, Musical Instruments & Teachers and Sports Teams.
+COFFEE_CATEGORIES = {
+    "Coffee & Tea",
+    "Cafes",
+    "Coffee Roasteries",
+    "Bubble Tea",
+    "Tea Rooms",
+    "Internet Cafes",
+    "Themed Cafes",
+    "Hong Kong Style Cafe",
+}
+
+# Misspelled city names in the raw Yelp data, mapped to their correct spelling.
+CITY_CORRECTIONS = {"Maran": "Marana"}
 
 RAW_FILES = {
     "business": "yelp_academic_dataset_business.json",
@@ -106,10 +120,11 @@ def build_filtered_data(input_dir: Path, chunk_size: int = 50_000) -> dict[str, 
 
 def filter_businesses(business: pd.DataFrame) -> pd.DataFrame:
     """Return coffee-related businesses for Arizona."""
-    filtered = business[
-        (business["state"] == "AZ")
-        & (business["categories"].fillna("").str.contains(COFFEE_CATEGORY_PATTERN, case=False, regex=True))
-    ].copy()
+    is_coffee = business["categories"].fillna("").apply(
+        lambda value: any(category.strip() in COFFEE_CATEGORIES for category in value.split(","))
+    )
+    filtered = business[(business["state"] == "AZ") & is_coffee].copy()
+    filtered["city"] = filtered["city"].str.strip().replace(CITY_CORRECTIONS)
     return filtered.reindex(columns=BUSINESS_COLUMNS)
 
 
